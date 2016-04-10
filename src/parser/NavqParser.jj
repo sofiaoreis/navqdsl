@@ -1,0 +1,41 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+
+public class NavqParser{  public static void main(String args []) throws ParseException  {    NavqParser parser = new NavqParser(System.in);
+    parser.Start();
+      }}PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
+//static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
+|  <#DIGIT: ["0"-"9"]>
+|  <STRING: "\"" ( ~["\"","\\","\n","\r"] | "\\" ( ["n","t","b","r","f","\\","\'","\""] | ( ["\n","\r"] | "\r\n")))* "\"">
+| < CRITERIA_TYPE: "shortest" | "fastest" >
+| < QUOTES: "\"" >}
+
+//reserved words
+TOKEN :
+{< OUTPUT: "Output" >
+| < PATHS: "paths" >
+| < PLACES: "places" >
+| < FROM: "from" >
+| < TO: "to" >
+| < CRITERIA: "criteria" >
+| < WITH: "with" >
+| < DISTANCE: "distance" >
+}
+
+//OPERATORS
+TOKEN :
+{	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
+}void Start():
+{
+  Token t;
+}
+{
+	< OUTPUT >
+	[
+	< NUMBER ><PATHS ><FROM >< STRING ><TO ><STRING ><QUOTES ><CRITERIA ><QUOTES ><CRITERIA_TYPE >
+	|
+	< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><FROM >< STRING >
+	]
+	
+}
