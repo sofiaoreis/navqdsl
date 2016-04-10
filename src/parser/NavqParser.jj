@@ -9,7 +9,8 @@ public class NavqParser{  public static void main(String args []) throws Parse
 |  <#DIGIT: ["0"-"9"]>
 |  <STRING: "\"" ( ~["\"","\\","\n","\r"] | "\\" ( ["n","t","b","r","f","\\","\'","\""] | ( ["\n","\r"] | "\r\n")))* "\"">
 | < CRITERIA_TYPE: "shortest" | "fastest" >
-| < QUOTES: "\"" >}
+| < QUOTES: "\"" >
+| < DOUBLEPOINT: ":" >}
 
 //reserved words
 TOKEN :
@@ -33,9 +34,14 @@ TOKEN :
 {
 	< OUTPUT >
 	[
-	< NUMBER ><PATHS ><FROM >< STRING ><TO ><STRING ><QUOTES ><CRITERIA ><QUOTES ><CRITERIA_TYPE >
+	< NUMBER ><PATHS ><FROM ><QUOTES >< STRING ><QUOTES ><TO ><QUOTES ><STRING ><QUOTES ><DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT ><CRITERIA_TYPE >
+
+
+	
 	|
-	< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><FROM >< STRING >
+	< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><FROM ><QUOTES >< STRING ><QUOTES >
+
+	
 	]
 	
 }

@@ -20,12 +20,16 @@ public class NavqParser implements NavqParserConstants {
         jj_consume_token(NUMBER);
         jj_consume_token(PATHS);
         jj_consume_token(FROM);
+        jj_consume_token(QUOTES);
         jj_consume_token(STRING);
+        jj_consume_token(QUOTES);
         jj_consume_token(TO);
+        jj_consume_token(QUOTES);
         jj_consume_token(STRING);
         jj_consume_token(QUOTES);
+        jj_consume_token(DOUBLEPOINT);
         jj_consume_token(CRITERIA);
-        jj_consume_token(QUOTES);
+        jj_consume_token(DOUBLEPOINT);
         jj_consume_token(CRITERIA_TYPE);
         break;
       case PLACES:
@@ -35,7 +39,9 @@ public class NavqParser implements NavqParserConstants {
         jj_consume_token(COMPARE);
         jj_consume_token(NUMBER);
         jj_consume_token(FROM);
+        jj_consume_token(QUOTES);
         jj_consume_token(STRING);
+        jj_consume_token(QUOTES);
         break;
       default:
         jj_la1[0] = jj_gen;
@@ -65,7 +71,7 @@ public class NavqParser implements NavqParserConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1020,0x1020,};
+      jj_la1_0 = new int[] {0x2020,0x2020,};
    }
 
   /** Constructor with InputStream. */
@@ -203,7 +209,7 @@ public class NavqParser implements NavqParserConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[19];
+    boolean[] la1tokens = new boolean[20];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -217,7 +223,7 @@ public class NavqParser implements NavqParserConstants {
         }
       }
     }
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 20; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
