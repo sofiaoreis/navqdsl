@@ -34,35 +34,45 @@ TOKEN :
 //OPERATORS
 TOKEN :
 {	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
-}SimpleNode  Start() #Start:
+}SimpleNode  Start() #START:
 {
   
 }
 {
-Exp1() {return jjtThis;}
+output() {return jjtThis;}
 }
 
-void Exp1() #Exp1 :{
+void output() #OUTPUT :{
  }
-{ < OUTPUT > (Exp2() | Exp3())}
+{ < OUTPUT > (numberOfPaths() | placesAtDistance())}
 
-void Exp2()#Exp2:{
+void numberOfPaths()#NUMBER_OF_PATHS:{
  }
 {
-< NUMBER><PATHS ><FROM ><QUOTED ><TO ><QUOTED ><DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
+number()<PATHS ><FROM >place()<TO >place()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
   }
 
-void Exp3() #Exp3:
+void placesAtDistance() #PLACES_AT_DISTANCE:
 {
   
 }
 {
-< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><PLACES ><FROM ><QUOTED >
+< PLACES ><WITH ><DISTANCE ><COMPARE >number()<PLACES ><FROM >place()
   
 }
+void place() #PLACE :
+{
+   Token t;
+}
+{
+ t=< QUOTED>  {jjtThis.value = t.image;}
+}
 
+void number() #NUMBER:{
+   Token t;}{
+ t=< NUMBER>  {jjtThis.value = t.image;}}
 
-void  criteriaType() #criteriaType:
+void  criteriaType() #CRITERIA_TYPE:
 {
   Token t;
 }

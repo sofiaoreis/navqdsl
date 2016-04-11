@@ -4,18 +4,22 @@ package parser;
 public interface NavqParserTreeConstants
 {
   public int JJTSTART = 0;
-  public int JJTEXP1 = 1;
-  public int JJTEXP2 = 2;
-  public int JJTEXP3 = 3;
-  public int JJTCRITERIATYPE = 4;
+  public int JJTOUTPUT = 1;
+  public int JJTNUMBER_OF_PATHS = 2;
+  public int JJTPLACES_AT_DISTANCE = 3;
+  public int JJTPLACE = 4;
+  public int JJTNUMBER = 5;
+  public int JJTCRITERIA_TYPE = 6;
 
 
   public String[] jjtNodeName = {
-    "Start",
-    "Exp1",
-    "Exp2",
-    "Exp3",
-    "criteriaType",
+    "START",
+    "OUTPUT",
+    "NUMBER_OF_PATHS",
+    "PLACES_AT_DISTANCE",
+    "PLACE",
+    "NUMBER",
+    "CRITERIA_TYPE",
   };
 }
-/* JavaCC - OriginalChecksum=a05fd806ae221cf54cb0ba204a69fe14 (do not edit this line) */
+/* JavaCC - OriginalChecksum=c8714f493c246d757994c96cef7e2742 (do not edit this line) */

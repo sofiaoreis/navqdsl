@@ -11,15 +11,15 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public SimpleNode Start() throws ParseException {
- /*@bgen(jjtree) Start */
+ /*@bgen(jjtree) START */
   SimpleNode jjtn000 = new SimpleNode(JJTSTART);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      Exp1();
-         jjtree.closeNodeScope(jjtn000, true);
-         jjtc000 = false;
-        {if (true) return jjtn000;}
+      output();
+           jjtree.closeNodeScope(jjtn000, true);
+           jjtc000 = false;
+          {if (true) return jjtn000;}
     } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -42,19 +42,19 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
     throw new Error("Missing return statement in function");
   }
 
-  static final public void Exp1() throws ParseException {
- /*@bgen(jjtree) Exp1 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP1);
+  static final public void output() throws ParseException {
+ /*@bgen(jjtree) OUTPUT */
+  SimpleNode jjtn000 = new SimpleNode(JJTOUTPUT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
       jj_consume_token(OUTPUT);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case NUMBER:
-        Exp2();
+        numberOfPaths();
         break;
       case PLACES:
-        Exp3();
+        placesAtDistance();
         break;
       default:
         jj_la1[0] = jj_gen;
@@ -82,18 +82,18 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
     }
   }
 
-  static final public void Exp2() throws ParseException {
- /*@bgen(jjtree) Exp2 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP2);
+  static final public void numberOfPaths() throws ParseException {
+ /*@bgen(jjtree) NUMBER_OF_PATHS */
+  SimpleNode jjtn000 = new SimpleNode(JJTNUMBER_OF_PATHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      jj_consume_token(NUMBER);
+      number();
       jj_consume_token(PATHS);
       jj_consume_token(FROM);
-      jj_consume_token(QUOTED);
+      place();
       jj_consume_token(TO);
-      jj_consume_token(QUOTED);
+      place();
       jj_consume_token(DOUBLEPOINT);
       jj_consume_token(CRITERIA);
       jj_consume_token(DOUBLEPOINT);
@@ -119,9 +119,9 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
     }
   }
 
-  static final public void Exp3() throws ParseException {
- /*@bgen(jjtree) Exp3 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP3);
+  static final public void placesAtDistance() throws ParseException {
+ /*@bgen(jjtree) PLACES_AT_DISTANCE */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACES_AT_DISTANCE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -129,10 +129,24 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
       jj_consume_token(WITH);
       jj_consume_token(DISTANCE);
       jj_consume_token(COMPARE);
-      jj_consume_token(NUMBER);
+      number();
       jj_consume_token(PLACES);
       jj_consume_token(FROM);
-      jj_consume_token(QUOTED);
+      place();
+    } catch (Throwable jjte000) {
+  if (jjtc000) {
+    jjtree.clearNodeScope(jjtn000);
+    jjtc000 = false;
+  } else {
+    jjtree.popNode();
+  }
+  if (jjte000 instanceof RuntimeException) {
+    {if (true) throw (RuntimeException)jjte000;}
+  }
+  if (jjte000 instanceof ParseException) {
+    {if (true) throw (ParseException)jjte000;}
+  }
+  {if (true) throw (Error)jjte000;}
     } finally {
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);
@@ -140,9 +154,43 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
     }
   }
 
+  static final public void place() throws ParseException {
+ /*@bgen(jjtree) PLACE */
+   SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      t = jj_consume_token(QUOTED);
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+               jjtn000.value = t.image;
+    } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+    }
+  }
+
+  static final public void number() throws ParseException {
+ /*@bgen(jjtree) NUMBER */
+   SimpleNode jjtn000 = new SimpleNode(JJTNUMBER);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      t = jj_consume_token(NUMBER);
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+               jjtn000.value = t.image;
+    } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+    }
+  }
+
   static final public void criteriaType() throws ParseException {
- /*@bgen(jjtree) criteriaType */
-  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIATYPE);
+ /*@bgen(jjtree) CRITERIA_TYPE */
+  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIA_TYPE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);Token t;
     try {

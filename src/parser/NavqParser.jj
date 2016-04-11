@@ -39,21 +39,21 @@ TOKEN :
 TOKEN :
 {	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
 }SimpleNode  Start()       :
-{/*@bgen(jjtree) Start */
+{/*@bgen(jjtree) START */
   SimpleNode jjtn000 = new SimpleNode(JJTSTART);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   
 }
-{/*@bgen(jjtree) Start */
+{/*@bgen(jjtree) START */
 try {
 /*@egen*/
-Exp1()/*@bgen(jjtree)*/
-       {
-         jjtree.closeNodeScope(jjtn000, true);
-         jjtc000 = false;
-       }
+output()/*@bgen(jjtree)*/
+         {
+           jjtree.closeNodeScope(jjtn000, true);
+           jjtc000 = false;
+         }
 /*@egen*/ {return jjtn000;}/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
@@ -77,15 +77,15 @@ Exp1()/*@bgen(jjtree)*/
 /*@egen*/
 }
 
-void Exp1()       :{/*@bgen(jjtree) Exp1 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP1);
+void output()         :{/*@bgen(jjtree) OUTPUT */
+  SimpleNode jjtn000 = new SimpleNode(JJTOUTPUT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
  }
-{/*@bgen(jjtree) Exp1 */
+{/*@bgen(jjtree) OUTPUT */
   try {
-/*@egen*/ < OUTPUT > (Exp2() | Exp3())/*@bgen(jjtree)*/
+/*@egen*/ < OUTPUT > (numberOfPaths() | placesAtDistance())/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -107,16 +107,16 @@ void Exp1()       :{/*@bgen(jjtree) Exp1 */
   }
 /*@egen*/}
 
-void Exp2()     :{/*@bgen(jjtree) Exp2 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP2);
+void numberOfPaths()                :{/*@bgen(jjtree) NUMBER_OF_PATHS */
+  SimpleNode jjtn000 = new SimpleNode(JJTNUMBER_OF_PATHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
  }
-{/*@bgen(jjtree) Exp2 */
+{/*@bgen(jjtree) NUMBER_OF_PATHS */
 try {
 /*@egen*/
-< NUMBER><PATHS ><FROM ><QUOTED ><TO ><QUOTED ><DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
+number()<PATHS ><FROM >place()<TO >place()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -139,18 +139,32 @@ try {
 /*@egen*/
   }
 
-void Exp3()      :
-{/*@bgen(jjtree) Exp3 */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP3);
+void placesAtDistance()                    :
+{/*@bgen(jjtree) PLACES_AT_DISTANCE */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACES_AT_DISTANCE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   
 }
-{/*@bgen(jjtree) Exp3 */
+{/*@bgen(jjtree) PLACES_AT_DISTANCE */
 try {
 /*@egen*/
-< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><PLACES ><FROM ><QUOTED >/*@bgen(jjtree)*/
+< PLACES ><WITH ><DISTANCE ><COMPARE >number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
+} catch (Throwable jjte000) {
+  if (jjtc000) {
+    jjtree.clearNodeScope(jjtn000);
+    jjtc000 = false;
+  } else {
+    jjtree.popNode();
+  }
+  if (jjte000 instanceof RuntimeException) {
+    throw (RuntimeException)jjte000;
+  }
+  if (jjte000 instanceof ParseException) {
+    throw (ParseException)jjte000;
+  }
+  throw (Error)jjte000;
 } finally {
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);
@@ -159,17 +173,61 @@ try {
 /*@egen*/
   
 }
+void place()        :
+{/*@bgen(jjtree) PLACE */
+   SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);
+/*@egen*/
+   Token t;
+}
+{/*@bgen(jjtree) PLACE */
+ try {
+/*@egen*/
+ t=< QUOTED>/*@bgen(jjtree)*/
+              {
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+              }
+/*@egen*/  {jjtn000.value = t.image;}/*@bgen(jjtree)*/
+ } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
+/*@egen*/
+}
 
+void number()        :{/*@bgen(jjtree) NUMBER */
+   SimpleNode jjtn000 = new SimpleNode(JJTNUMBER);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);
+/*@egen*/
+   Token t;}{/*@bgen(jjtree) NUMBER */
+ try {
+/*@egen*/
+ t=< NUMBER>/*@bgen(jjtree)*/
+              {
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+              }
+/*@egen*/  {jjtn000.value = t.image;}/*@bgen(jjtree)*/
+ } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
+/*@egen*/}
 
-void  criteriaType()              :
-{/*@bgen(jjtree) criteriaType */
-  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIATYPE);
+void  criteriaType()               :
+{/*@bgen(jjtree) CRITERIA_TYPE */
+  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIA_TYPE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   Token t;
 }
-{/*@bgen(jjtree) criteriaType */
+{/*@bgen(jjtree) CRITERIA_TYPE */
 try {
 /*@egen*/
 t=<CRITERIA_TYPE >/*@bgen(jjtree)*/
