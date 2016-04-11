@@ -1,0 +1,71 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+
+public class NavqParser{  public static void main(String args []) throws ParseException  {    NavqParser parser = new NavqParser(System.in);
+    SimpleNode root = parser.Start();
+    root.dump("");
+      }}PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
+//static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
+|  <#DIGIT: ["0"-"9"]>
+| < CRITERIA_TYPE: "shortest" | "fastest" >
+| <QUOTED: 
+    "\"" 
+    (
+         "\\" ~[]     //any escaped character
+    |                 //or
+        ~["\"","\\"]  //any character except quote or backslash
+    )* 
+    "\"" > 
+| < DOUBLEPOINT: ":" >}
+
+//reserved words
+TOKEN :
+{< OUTPUT: "Output" >
+| < PATHS: "paths" >
+| < PLACES: "places" >
+| < FROM: "from" >
+| < TO: "to" >
+| < CRITERIA: "criteria" >
+| < WITH: "with" >
+| < DISTANCE: "distance" >
+}
+
+//OPERATORS
+TOKEN :
+{	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
+}SimpleNode  Start() #Start:
+{
+  
+}
+{
+Exp1() {return jjtThis;}
+}
+
+void Exp1() #Exp1 :{
+ }
+{ < OUTPUT > (Exp2() | Exp3())}
+
+void Exp2()#Exp2:{
+ }
+{
+< NUMBER><PATHS ><FROM ><QUOTED ><TO ><QUOTED ><DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
+  }
+
+void Exp3() #Exp3:
+{
+  
+}
+{
+< PLACES ><WITH ><DISTANCE ><COMPARE ><NUMBER ><PLACES ><FROM ><QUOTED >
+  
+}
+
+
+void  criteriaType() #criteriaType:
+{
+  Token t;
+}
+{
+t=<CRITERIA_TYPE >  {jjtThis.value = t.image;}
+}

@@ -4,22 +4,18 @@ package parser;
 public interface NavqParserTreeConstants
 {
   public int JJTSTART = 0;
-  public int JJTEXPRESSION = 1;
-  public int JJTADDITIVEEXPRESSION = 2;
-  public int JJTMULTIPLICATIVEEXPRESSION = 3;
-  public int JJTUNARYEXPRESSION = 4;
-  public int JJTIDENTIFIER = 5;
-  public int JJTINTEGER = 6;
+  public int JJTEXP1 = 1;
+  public int JJTEXP2 = 2;
+  public int JJTEXP3 = 3;
+  public int JJTCRITERIATYPE = 4;
 
 
   public String[] jjtNodeName = {
     "Start",
-    "Expression",
-    "AdditiveExpression",
-    "MultiplicativeExpression",
-    "UnaryExpression",
-    "Identifier",
-    "Integer",
+    "Exp1",
+    "Exp2",
+    "Exp3",
+    "criteriaType",
   };
 }
-/* JavaCC - OriginalChecksum=a3e0be2e4673dffc2d2b0214e5494ed3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a05fd806ae221cf54cb0ba204a69fe14 (do not edit this line) */
