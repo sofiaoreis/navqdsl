@@ -45,11 +45,11 @@ output() {return jjtThis;}
 void output() #OUTPUT :{
  }
 { < OUTPUT > (numberOfPaths() | placesAtDistance())}
-
+	
 void numberOfPaths()#NUMBER_OF_PATHS:{
  }
 {
-number()<PATHS ><FROM >place()<TO >place()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
+number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
   }
 
 void placesAtDistance() #PLACES_AT_DISTANCE:
@@ -57,7 +57,7 @@ void placesAtDistance() #PLACES_AT_DISTANCE:
   
 }
 {
-< PLACES ><WITH ><DISTANCE >compareSign() number()<PLACES ><FROM >place()
+< PLACES ><WITH ><DISTANCE > compareSign() number()<PLACES ><FROM >place()
   
 }
 void compareSign() #COMPARE_SIGN:
@@ -68,7 +68,9 @@ void compareSign() #COMPARE_SIGN:
  t=<COMPARE >{jjtThis.value = t.image;}
 }
  
-
+void places() #TO:
+{}{
+  place() <TO >place()}
 void place() #PLACE :
 {
    Token t;

@@ -91,9 +91,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
       number();
       jj_consume_token(PATHS);
       jj_consume_token(FROM);
-      place();
-      jj_consume_token(TO);
-      place();
+      places();
       jj_consume_token(DOUBLEPOINT);
       jj_consume_token(CRITERIA);
       jj_consume_token(DOUBLEPOINT);
@@ -168,6 +166,36 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
    }
+    }
+  }
+
+  static final public void places() throws ParseException {
+ /*@bgen(jjtree) TO */
+  SimpleNode jjtn000 = new SimpleNode(JJTTO);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      place();
+      jj_consume_token(TO);
+      place();
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
     }
   }
 

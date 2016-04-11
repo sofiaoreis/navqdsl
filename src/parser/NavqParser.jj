@@ -106,7 +106,7 @@ void output()         :{/*@bgen(jjtree) OUTPUT */
     }
   }
 /*@egen*/}
-
+	
 void numberOfPaths()                :{/*@bgen(jjtree) NUMBER_OF_PATHS */
   SimpleNode jjtn000 = new SimpleNode(JJTNUMBER_OF_PATHS);
   boolean jjtc000 = true;
@@ -116,7 +116,7 @@ void numberOfPaths()                :{/*@bgen(jjtree) NUMBER_OF_PATHS */
 {/*@bgen(jjtree) NUMBER_OF_PATHS */
 try {
 /*@egen*/
-number()<PATHS ><FROM >place()<TO >place()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
+number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -150,7 +150,7 @@ void placesAtDistance()                    :
 {/*@bgen(jjtree) PLACES_AT_DISTANCE */
 try {
 /*@egen*/
-< PLACES ><WITH ><DISTANCE >compareSign() number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
+< PLACES ><WITH ><DISTANCE > compareSign() number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -198,7 +198,35 @@ void compareSign()              :
 /*@egen*/
 }
  
-
+void places()    :
+{/*@bgen(jjtree) TO */
+  SimpleNode jjtn000 = new SimpleNode(JJTTO);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}{/*@bgen(jjtree) TO */
+  try {
+/*@egen*/
+  place() <TO >place()/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/}
 void place()        :
 {/*@bgen(jjtree) PLACE */
    SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
