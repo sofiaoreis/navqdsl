@@ -128,7 +128,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
       jj_consume_token(PLACES);
       jj_consume_token(WITH);
       jj_consume_token(DISTANCE);
-      jj_consume_token(COMPARE);
+      compareSign();
       number();
       jj_consume_token(PLACES);
       jj_consume_token(FROM);
@@ -151,6 +151,23 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);
   }
+    }
+  }
+
+  static final public void compareSign() throws ParseException {
+ /*@bgen(jjtree) COMPARE_SIGN */
+   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARE_SIGN);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      t = jj_consume_token(COMPARE);
+               jjtree.closeNodeScope(jjtn000, true);
+               jjtc000 = false;
+              jjtn000.value = t.image;
+    } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
     }
   }
 

@@ -7,9 +7,10 @@ public interface NavqParserTreeConstants
   public int JJTOUTPUT = 1;
   public int JJTNUMBER_OF_PATHS = 2;
   public int JJTPLACES_AT_DISTANCE = 3;
-  public int JJTPLACE = 4;
-  public int JJTNUMBER = 5;
-  public int JJTCRITERIA_TYPE = 6;
+  public int JJTCOMPARE_SIGN = 4;
+  public int JJTPLACE = 5;
+  public int JJTNUMBER = 6;
+  public int JJTCRITERIA_TYPE = 7;
 
 
   public String[] jjtNodeName = {
@@ -17,9 +18,10 @@ public interface NavqParserTreeConstants
     "OUTPUT",
     "NUMBER_OF_PATHS",
     "PLACES_AT_DISTANCE",
+    "COMPARE_SIGN",
     "PLACE",
     "NUMBER",
     "CRITERIA_TYPE",
   };
 }
-/* JavaCC - OriginalChecksum=c8714f493c246d757994c96cef7e2742 (do not edit this line) */
+/* JavaCC - OriginalChecksum=7bbd75342f2b4b429d28fec0177e2b2a (do not edit this line) */

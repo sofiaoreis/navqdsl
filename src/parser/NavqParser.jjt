@@ -57,9 +57,18 @@ void placesAtDistance() #PLACES_AT_DISTANCE:
   
 }
 {
-< PLACES ><WITH ><DISTANCE ><COMPARE >number()<PLACES ><FROM >place()
+< PLACES ><WITH ><DISTANCE >compareSign() number()<PLACES ><FROM >place()
   
 }
+void compareSign() #COMPARE_SIGN:
+{
+   Token t;
+}
+{
+ t=<COMPARE >{jjtThis.value = t.image;}
+}
+ 
+
 void place() #PLACE :
 {
    Token t;

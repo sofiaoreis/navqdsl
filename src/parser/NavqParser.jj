@@ -150,7 +150,7 @@ void placesAtDistance()                    :
 {/*@bgen(jjtree) PLACES_AT_DISTANCE */
 try {
 /*@egen*/
-< PLACES ><WITH ><DISTANCE ><COMPARE >number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
+< PLACES ><WITH ><DISTANCE >compareSign() number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -173,6 +173,32 @@ try {
 /*@egen*/
   
 }
+void compareSign()              :
+{/*@bgen(jjtree) COMPARE_SIGN */
+   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARE_SIGN);
+   boolean jjtc000 = true;
+   jjtree.openNodeScope(jjtn000);
+/*@egen*/
+   Token t;
+}
+{/*@bgen(jjtree) COMPARE_SIGN */
+ try {
+/*@egen*/
+ t=<COMPARE >/*@bgen(jjtree)*/
+             {
+               jjtree.closeNodeScope(jjtn000, true);
+               jjtc000 = false;
+             }
+/*@egen*/{jjtn000.value = t.image;}/*@bgen(jjtree)*/
+ } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
+/*@egen*/
+}
+ 
+
 void place()        :
 {/*@bgen(jjtree) PLACE */
    SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
