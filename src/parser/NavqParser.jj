@@ -2,14 +2,39 @@
 /*@egen*//**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+import java.io.*;
+import java.util.Hashtable;
+import java.util.Enumeration;
 
 public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected static JJTNavqParserState jjtree = new JJTNavqParserState();
 
-/*@egen*/  public static void main(String args []) throws ParseException  {    NavqParser parser = new NavqParser(System.in);
+/*@egen*/
+	public static Hashtable ST = new Hashtable();
+    public static void main(String args []) throws ParseException  {
+	String temp;
+    STC    temp2;
+
+        NavqParser parser = new NavqParser(System.in);
     SimpleNode root = parser.Start();
     root.dump("");
-      }}PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
+
+	
+
+	 Enumeration t = ST.keys();
+	
+     while ( t.hasMoreElements() == true ) {
+
+          temp = (String)t.nextElement();
+          temp2 = (STC)ST.get(temp);
+          System.out.println(temp);
+          if ( temp2.type != null )
+            System.out.println(" type = " + temp2.type);
+          if ( temp2.value != null )
+            System.out.println(" value = " + temp2.value);
+
+    }
+     }}PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
 //static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
 |  <#DIGIT: ["0"-"9"]>
 | < CRITERIA_TYPE: "shortest" | "fastest" >
@@ -189,7 +214,8 @@ void compareSign()              :
                jjtree.closeNodeScope(jjtn000, true);
                jjtc000 = false;
              }
-/*@egen*/{jjtn000.value = t.image;}/*@bgen(jjtree)*/
+/*@egen*/{jjtn000.value = t.image;
+ ST.put(t.image,new STC("compare_sign",t.image));}/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -243,7 +269,8 @@ void place()        :
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
               }
-/*@egen*/  {jjtn000.value = t.image;}/*@bgen(jjtree)*/
+/*@egen*/  {jjtn000.value = t.image;
+ ST.put(t.image,new STC("place",t.image));}/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -265,7 +292,9 @@ void number()        :{/*@bgen(jjtree) NUMBER */
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
               }
-/*@egen*/  {jjtn000.value = t.image;}/*@bgen(jjtree)*/
+/*@egen*/  {jjtn000.value = t.image;
+	ST.put(t.image,new STC("number",t.image));
+ }/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -289,7 +318,9 @@ t=<CRITERIA_TYPE >/*@bgen(jjtree)*/
                       jjtree.closeNodeScope(jjtn000, true);
                       jjtc000 = false;
                     }
-/*@egen*/  {jjtn000.value = t.image;}/*@bgen(jjtree)*/
+/*@egen*/  {jjtn000.value = t.image;
+   ST.put(t.image,new STC("criteria",t.image));
+}/*@bgen(jjtree)*/
 } finally {
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);
