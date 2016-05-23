@@ -2,15 +2,27 @@
 /*@egen*//**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
+
+ import org.jgrapht.*;
+    import org.jgrapht.alg.*;
+    import org.jgrapht.graph.*;
+    import java.util.List;
+
+
+import java.net.*;
 
 public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected static JJTNavqParserState jjtree = new JJTNavqParserState();
 
 /*@egen*/
 	public static Hashtable ST = new Hashtable();
+	
+ 
+	
     public static void main(String args []) throws ParseException  {
 	String temp;
     STC    temp2;
@@ -19,11 +31,9 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@ege
     SimpleNode root = parser.Start();
     root.dump("");
 
-	
-
 	 Enumeration t = ST.keys();
 	
-     while ( t.hasMoreElements() == true ) {
+     while (t.hasMoreElements() == true) {
 
           temp = (String)t.nextElement();
           temp2 = (STC)ST.get(temp);
@@ -34,7 +44,62 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@ege
             System.out.println(" value = " + temp2.value);
 
     }
-     }}PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
+
+ SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph = 
+            new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class); 
+            graph.addVertex("v1");
+            graph.addVertex("v2");
+            graph.addVertex("v3");
+            graph.addVertex("v4");
+            graph.addVertex("v5");
+
+
+            DefaultWeightedEdge e1 = graph.addEdge("v1", "v2"); 
+            graph.setEdgeWeight(e1, 5); 
+
+            DefaultWeightedEdge e2 = graph.addEdge("v2", "v3"); 
+            graph.setEdgeWeight(e2, 3); 
+
+            DefaultWeightedEdge e3 = graph.addEdge("v4", "v5"); 
+            graph.setEdgeWeight(e3, 6); 
+
+            DefaultWeightedEdge e4 = graph.addEdge("v2", "v4"); 
+            graph.setEdgeWeight(e4, 2); 
+
+            DefaultWeightedEdge e5 = graph.addEdge("v5", "v4"); 
+            graph.setEdgeWeight(e5, 4); 
+
+
+            DefaultWeightedEdge e6 = graph.addEdge("v2", "v5"); 
+            graph.setEdgeWeight(e6, 9); 
+
+            DefaultWeightedEdge e7 = graph.addEdge("v4", "v1"); 
+            graph.setEdgeWeight(e7, 7); 
+
+            DefaultWeightedEdge e8 = graph.addEdge("v3", "v2"); 
+            graph.setEdgeWeight(e8, 2); 
+
+            DefaultWeightedEdge e9 = graph.addEdge("v1", "v3"); 
+            graph.setEdgeWeight(e9, 10); 
+
+            DefaultWeightedEdge e10 = graph.addEdge("v3", "v5"); 
+            graph.setEdgeWeight(e10, 1); 
+
+
+            System.out.println("Shortest path from v1 to v5:");
+            List shortest_path =   DijkstraShortestPath.findPathBetween(graph, "v1", "v5");
+            System.out.println(shortest_path);
+    
+     }
+
+
+
+  
+
+
+ }
+
+PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
 //static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
 |  <#DIGIT: ["0"-"9"]>
 | < CRITERIA_TYPE: "shortest" | "fastest" >
@@ -46,7 +111,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@ege
         ~["\"","\\"]  //any character except quote or backslash
     )* 
     "\"" > 
-| < DOUBLEPOINT: ":" >}
+| < DOUBLEPOINT: ":" >
+| < CENAS: "\"" >}
 
 //reserved words
 TOKEN :
