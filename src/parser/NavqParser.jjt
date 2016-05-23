@@ -1,6 +1,13 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(NavqParser)
+package parser;
 
 import java.io.*;
 import java.util.Hashtable;
@@ -14,18 +21,38 @@ import java.util.Enumeration;
 
 import java.net.*;
 
-public class NavqParser{
+public class NavqParser
+{
 	public static Hashtable ST = new Hashtable();
 	
  
 	
-    public static void main(String args []) throws ParseException  {
+  
+  public static void main(String args []) throws ParseException
+  {
 	String temp;
     STC    temp2;
 
-        NavqParser parser = new NavqParser(System.in);
+    
+    NavqParser parser = new NavqParser(System.in);
+    
+  try
+    {
+      
     SimpleNode root = parser.Start();
     root.dump("");
+   }
+   catch (ParseException e) {
+                        System.out.println("Parse error: " + e);
+                        return;
+            }
+    catch (TokenMgrError e) {
+                        System.out.println("Token error: " + e);
+                        return;
+    }
+     System.out.println("Successful parse");
+
+
 
 	 Enumeration t = ST.keys();
 	
@@ -86,17 +113,34 @@ public class NavqParser{
             List shortest_path =   DijkstraShortestPath.findPathBetween(graph, "v1", "v5");
             System.out.println(shortest_path);
     
-     }
+   
+  }
 
 
 
   
 
 
- }
+ 
+}
 
-PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
-//static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
+
+
+PARSER_END(NavqParser)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+
+//static tokens
+TOKEN :
+{
+ < NUMBER: (<DIGIT>)+>
 |  <#DIGIT: ["0"-"9"]>
 | < CRITERIA_TYPE: "shortest" | "fastest" >
 | <QUOTED: 
@@ -108,11 +152,13 @@ public class NavqParser{
     )* 
     "\"" > 
 | < DOUBLEPOINT: ":" >
-| < CENAS: "\"" >}
+| < CENAS: "\"" >
+}
 
 //reserved words
 TOKEN :
-{< OUTPUT: "Output" >
+{
+< OUTPUT: "Output" >
 | < PATHS: "paths" >
 | < PLACES: "places" >
 | < FROM: "from" >
@@ -124,8 +170,11 @@ TOKEN :
 
 //OPERATORS
 TOKEN :
-{	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
-}SimpleNode  Start() #START:
+{
+	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
+}
+
+SimpleNode  Start() #START:
 {
   
 }
@@ -133,15 +182,21 @@ TOKEN :
 output() {return jjtThis;}
 }
 
-void output() #OUTPUT :{
- }
-{ < OUTPUT > (numberOfPaths() | placesAtDistance())}
+void output() #OUTPUT :
+{
+ 
+}
+{ < OUTPUT > (numberOfPaths() | placesAtDistance())
+}
 	
-void numberOfPaths()#NUMBER_OF_PATHS:{
- }
+void numberOfPaths()#NUMBER_OF_PATHS:
+{
+ 
+}
 {
 number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
-  }
+  
+}
 
 void placesAtDistance() #PLACES_AT_DISTANCE:
 {
@@ -161,8 +216,11 @@ void compareSign() #COMPARE_SIGN:
 }
  
 void places() #TO:
-{}{
-  place() <TO >place()}
+{
+}
+{
+  place() <TO >place()
+}
 void place() #PLACE :
 {
    Token t;
@@ -172,11 +230,15 @@ void place() #PLACE :
  ST.put(t.image,new STC("place",t.image));}
 }
 
-void number() #NUMBER:{
-   Token t;}{
+void number() #NUMBER:
+{
+   Token t;
+}
+{
  t=< NUMBER>  {jjtThis.value = t.image;
 	ST.put(t.image,new STC("number",t.image));
- }}
+ }
+}
 
 void  criteriaType() #CRITERIA_TYPE:
 {
@@ -186,4 +248,5 @@ void  criteriaType() #CRITERIA_TYPE:
 t=<CRITERIA_TYPE >  {jjtThis.value = t.image;
    ST.put(t.image,new STC("criteria",t.image));
 }
-}
+}
+

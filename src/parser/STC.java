@@ -8,7 +8,6 @@ public class STC extends Object {
 
 	  public STC(String itype, String ivalue) {
 	    type=itype;
-	    value=ivalue;
-
+    	value = ivalue.replaceAll("\"", "");
 	  }
 	}
