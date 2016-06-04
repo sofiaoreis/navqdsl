@@ -4,6 +4,7 @@ package parser;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.ArrayList;
 
  import org.jgrapht.*;
     import org.jgrapht.alg.*;
@@ -26,8 +27,24 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
 
 
     NavqParser parser = new NavqParser(System.in);
+
+  try
+    {
+
     SimpleNode root = parser.Start();
     root.dump("");
+   }
+   catch (ParseException e) {
+                        System.out.println("Parse error: " + e);
+                        return;
+            }
+    catch (TokenMgrError e) {
+                        System.out.println("Token error: " + e);
+                        return;
+    }
+     System.out.println("Successful parse");
+
+
 
          Enumeration t = ST.keys();
 
@@ -42,6 +59,27 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
             System.out.println(" value = " + temp2.value);
 
     }
+
+    List<String > graphdata = new ArrayList<String >();
+    String filename = "./data/small.NY.gr";
+    try
+    {
+
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                   graphdata.add(line);
+            }
+            reader.close();
+          }
+          catch (Exception e)
+          {
+            System.err.format("Exception occurred trying to read '%s'.", filename);
+            e.printStackTrace();
+          }
+
+
 
  SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph =
             new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
@@ -87,8 +125,6 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
             System.out.println("Shortest path from v1 to v5:");
             List shortest_path =   DijkstraShortestPath.findPathBetween(graph, "v1", "v5");
             System.out.println(shortest_path);
-
-
   }
 
   static final public SimpleNode Start() throws ParseException {

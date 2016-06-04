@@ -12,6 +12,7 @@ package parser;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.ArrayList;
 
  import org.jgrapht.*;
     import org.jgrapht.alg.*;
@@ -68,6 +69,24 @@ public class NavqParser
 
     }
 
+    List<String > graphdata = new ArrayList<String >();
+    String filename = "./data/small.NY.gr";
+    try    {
+      	
+	    BufferedReader reader = new BufferedReader(new FileReader(filename));
+	    String line;
+	    while ((line = reader.readLine()) != null)
+	    {
+	   	   graphdata.add(line);
+	    }
+	    reader.close();
+	  }
+	  catch (Exception e)
+	  {
+	    System.err.format("Exception occurred trying to read '%s'.", filename);
+	    e.printStackTrace();
+	  }    
+
  SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph = 
             new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class); 
             graph.addVertex("v1");
@@ -111,17 +130,8 @@ public class NavqParser
 
             System.out.println("Shortest path from v1 to v5:");
             List shortest_path =   DijkstraShortestPath.findPathBetween(graph, "v1", "v5");
-            System.out.println(shortest_path);
-    
-   
-  }
-
-
-
-  
-
-
- 
+            System.out.println(shortest_path);  
+  } 
 }
 
 
