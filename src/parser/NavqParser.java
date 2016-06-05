@@ -4,20 +4,22 @@ package parser;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
-import java.util.ArrayList;
 
  import org.jgrapht.*;
     import org.jgrapht.alg.*;
     import org.jgrapht.graph.*;
     import java.util.List;
+    import org.jgrapht.traverse.DepthFirstIterator;
+import org.jgrapht.traverse.GraphIterator;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 
 import java.net.*;
 
 public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, NavqParserConstants {/*@bgen(jjtree)*/
   protected static JJTNavqParserState jjtree = new JJTNavqParserState();public static Hashtable ST = new Hashtable();
-
-
+        public static SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class); ;
 
 
   public static void main(String args []) throws ParseException
@@ -25,106 +27,93 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
         String temp;
     STC    temp2;
 
-
     NavqParser parser = new NavqParser(System.in);
-
-  try
-    {
-
     SimpleNode root = parser.Start();
     root.dump("");
-   }
-   catch (ParseException e) {
-                        System.out.println("Parse error: " + e);
-                        return;
-            }
-    catch (TokenMgrError e) {
-                        System.out.println("Token error: " + e);
-                        return;
-    }
-     System.out.println("Successful parse");
-
-
 
          Enumeration t = ST.keys();
 
-     while (t.hasMoreElements() == true) {
+
+        while (t.hasMoreElements() == true) {
 
           temp = (String)t.nextElement();
           temp2 = (STC)ST.get(temp);
           System.out.println(temp);
+
           if ( temp2.type != null )
             System.out.println(" type = " + temp2.type);
           if ( temp2.value != null )
             System.out.println(" value = " + temp2.value);
 
     }
+          readFile();
+          getShortestPaths(graph, "1","4",2);
+  }
 
-    List<String > graphdata = new ArrayList<String >();
-    String filename = "./data/small.NY.gr";
+  public static void getShortestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)
+  {
+     KShortestPaths kgraph = new KShortestPaths(graph, startVertice, numberPaths);
+     List shortest_paths = kgraph.getPaths(endVertice);
+
+     for(int i = 0; i < shortest_paths.size(); i++)
+     {
+        System.out.println(shortest_paths.get(i));
+     }
+  }
+
+  public static void readFile()
+  {
     try
     {
-
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader("./data/small.NY.gr"));
             String line;
             while ((line = reader.readLine()) != null)
             {
-                   graphdata.add(line);
+                   if(line.substring(0, 1).matches("^a.*"))
+                   {
+                     addInfoToGraph(line);
+                   }
+
             }
             reader.close();
           }
           catch (Exception e)
           {
-            System.err.format("Exception occurred trying to read '%s'.", filename);
+            System.err.format("Exception occurred trying to read '%s'.", "./data/small.NY.gr");
             e.printStackTrace();
           }
+  }
+
+  public static void addInfoToGraph(String str)
+  {
+        String[] splited = str.split(" ");
+
+        addVertex(splited[1]);
+        addVertex(splited[2]);
+
+          DefaultWeightedEdge edge = graph.addEdge(splited[1], splited[2]);
+                //System.out.println("NODE1:" + splited[1] + "NODE2:" + splited[2] + "NODE3:" + splited[3]);
+        graph.setEdgeWeight(edge, Integer.parseInt(splited[3]));
 
 
+  }
 
- SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph =
-            new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-            graph.addVertex("v1");
-            graph.addVertex("v2");
-            graph.addVertex("v3");
-            graph.addVertex("v4");
-            graph.addVertex("v5");
+  public static void addVertex(String vertex)
+ {
+   if(!graph.containsVertex(vertex))
+   {
+     graph.addVertex(vertex);
+   }
 
+ }
 
-            DefaultWeightedEdge e1 = graph.addEdge("v1", "v2");
-            graph.setEdgeWeight(e1, 5);
+  public static void getFastestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)
+  {
+     DepthFirstIterator iterator = new DepthFirstIterator(graph, startVertice);
+        while(iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
 
-            DefaultWeightedEdge e2 = graph.addEdge("v2", "v3");
-            graph.setEdgeWeight(e2, 3);
-
-            DefaultWeightedEdge e3 = graph.addEdge("v4", "v5");
-            graph.setEdgeWeight(e3, 6);
-
-            DefaultWeightedEdge e4 = graph.addEdge("v2", "v4");
-            graph.setEdgeWeight(e4, 2);
-
-            DefaultWeightedEdge e5 = graph.addEdge("v5", "v4");
-            graph.setEdgeWeight(e5, 4);
-
-
-            DefaultWeightedEdge e6 = graph.addEdge("v2", "v5");
-            graph.setEdgeWeight(e6, 9);
-
-            DefaultWeightedEdge e7 = graph.addEdge("v4", "v1");
-            graph.setEdgeWeight(e7, 7);
-
-            DefaultWeightedEdge e8 = graph.addEdge("v3", "v2");
-            graph.setEdgeWeight(e8, 2);
-
-            DefaultWeightedEdge e9 = graph.addEdge("v1", "v3");
-            graph.setEdgeWeight(e9, 10);
-
-            DefaultWeightedEdge e10 = graph.addEdge("v3", "v5");
-            graph.setEdgeWeight(e10, 1);
-
-
-            System.out.println("Shortest path from v1 to v5:");
-            List shortest_path =   DijkstraShortestPath.findPathBetween(graph, "v1", "v5");
-            System.out.println(shortest_path);
   }
 
   static final public SimpleNode Start() throws ParseException {
