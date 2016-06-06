@@ -21,11 +21,19 @@ import java.net.*;
 
 public class NavqParser{
 	public static Hashtable ST = new Hashtable();
+	public static String missedDouble = "";
 
 	public static Hashtable getHashTable()
 	{
 	  return ST;	}
-    
+
+public void PrintWarnings()
+  {
+    System.out.println("WARNING: You are beautiful!");
+    if(missedDouble!= "")
+    	System.out.println("Warning: You've missed doublepoint, in the following situation " + missedDouble);
+    
+  }
 }
 
 
@@ -61,7 +69,9 @@ TOKEN :
 //OPERATORS
 TOKEN :
 {	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
-}SimpleNode  Start():
+}
+
+SimpleNode  Start():
 {
   
 }
@@ -72,14 +82,61 @@ output() {return jjtThis;}
 void output():{
  }
 {
-    < OUTPUT > (numberOfPaths() | placesAtDistance())  
-  }
-	
-void numberOfPaths():{
- }
+   
+   < OUTPUT >try{  
+   (
+     numberOfPaths()
+
+   | placesAtDistance())
+}
+		catch( TokenMgrError e ) {
+			System.out.println("There was an ERROR in the QUERIE! \nWaiting for querie Output\n  [number] paths from \"[place]\" to \"[place]\": criteria: [shortest|fastest]\n  places with distance [compare_sign] [number] places from \"[place]\"");
+			System.exit( 0 );
+			}
+}
+
+
+JAVACODE
+void error_skipto(int kind) {
+  ParseException e = generateParseException();  // generate the exception object.
+  System.out.println(e.toString());  // print the error message
+  Token t;
+  do {
+    t = getNextToken();
+  } while (t.kind != 5);
+  System.out.println(t.kind + " " + t.image);
+  
+
+    // The above loop consumes tokens all the way up to a token of
+    // "kind".  We use a do-while loop rather than a while because the
+    // current token is the one immediately before the erroneous token
+    // (in our case the token immediately before what should have been
+    // "if"/"while".
+}
+
+
+void numberOfPaths():{
+	Token t1, t2 =null;
+	}
 {
-number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()
+    number()   <PATHS ><FROM >places()
+   			((t1=<DOUBLEPOINT ><CRITERIA > )|t1=<CRITERIA >)   			{
+   			  if(t1.image!=":")   			  {
+   			    missedDouble+=" [: criteria] ";   			  }   			}
+
+   			  ((t2=<DOUBLEPOINT > criteriaType())|criteriaType())
+   			  {
+   			  try   			  {   			    
+   			  if(t2.image!=":")
+   			  {
+   			    missedDouble+=" [ criteria:] ";
+   			  }   			}   			catch (NullPointerException e) {
+    missedDouble+=" [ criteria:] ";
+} 
+   			}
   }
+
+  
 
 void placesAtDistance():
 {
@@ -94,15 +151,37 @@ void compareSign():
    Token t;
 }
 {
+try{  
  t=<COMPARE >{jjtThis.value = t.image;
  //System.out.println(t.image);
 	ST.put(t.image,new STC("compare_sign",t.image));
-}
+}}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid compare sign!");
+		System.exit( 0 );
+	}
 }
  
 void places():
 {}{
-  place() <TO >place()}
+try
+{
+  place()
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid departure place. Should be in format \"[place]\"!");
+		System.exit( 0 );
+	}
+
+  <TO >
+
+try{  place()
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid arrival place. Should be in format \"[place]\"!");
+		System.exit( 0 );
+	}
+  }
 void place():
 {
    Token t;
@@ -116,18 +195,38 @@ void place():
 
 void number():{
    Token t;}{
+  try  {    
  t=< NUMBER>  {jjtThis.value = t.image;
  	//System.out.println(t.image);
 	ST.put(t.image,new STC("number",t.image));
- }}
+	
+}
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid number. Waiting for an Integer!");
+		System.exit( 0 );
+	}
+
+}
 
 void  criteriaType():
 {
   Token t;
 }
+  
 {
-t=<CRITERIA_TYPE >  {jjtThis.value = t.image;
+  try  {    
+  (
+	t=<CRITERIA_TYPE >
+{jjtThis.value = t.image;
 	//System.out.println(t.image);
    ST.put(t.image,new STC("criteria",t.image));
+ }
+
+)
 }
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid criteria type. Waiting for criteria:shortest or fastest!");
+		System.exit( 0 );
+	}
 }

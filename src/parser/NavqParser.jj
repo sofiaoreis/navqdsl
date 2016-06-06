@@ -25,11 +25,19 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@ege
 
 /*@egen*/
 	public static Hashtable ST = new Hashtable();
+	public static String missedDouble = "";
 
 	public static Hashtable getHashTable()
 	{
 	  return ST;	}
-    
+
+public void PrintWarnings()
+  {
+    System.out.println("WARNING: You are beautiful!");
+    if(missedDouble!= "")
+    	System.out.println("Warning: You've missed doublepoint, in the following situation " + missedDouble);
+    
+  }
 }
 
 
@@ -65,7 +73,9 @@ TOKEN :
 //OPERATORS
 TOKEN :
 {	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
-}SimpleNode  Start():
+}
+
+SimpleNode  Start():
 {/*@bgen(jjtree) Start */
   SimpleNode jjtn000 = new SimpleNode(JJTSTART);
   boolean jjtc000 = true;
@@ -111,9 +121,102 @@ void output():{/*@bgen(jjtree) output */
 /*@egen*/
  }
 {/*@bgen(jjtree) output */
+   try {
+/*@egen*/
+   
+   < OUTPUT >try{  
+   (
+     numberOfPaths()
+
+   | placesAtDistance())
+}
+		catch( TokenMgrError e ) {
+			System.out.println("There was an ERROR in the QUERIE! \nWaiting for querie Output\n  [number] paths from \"[place]\" to \"[place]\": criteria: [shortest|fastest]\n  places with distance [compare_sign] [number] places from \"[place]\"");
+			System.exit( 0 );
+			}/*@bgen(jjtree)*/
+   } catch (Throwable jjte000) {
+     if (jjtc000) {
+       jjtree.clearNodeScope(jjtn000);
+       jjtc000 = false;
+     } else {
+       jjtree.popNode();
+     }
+     if (jjte000 instanceof RuntimeException) {
+       throw (RuntimeException)jjte000;
+     }
+     if (jjte000 instanceof ParseException) {
+       throw (ParseException)jjte000;
+     }
+     throw (Error)jjte000;
+   } finally {
+     if (jjtc000) {
+       jjtree.closeNodeScope(jjtn000, true);
+     }
+   }
+/*@egen*/
+}
+
+
+JAVACODE
+void error_skipto(int kind) {/*@bgen(jjtree) error_skipto */
+SimpleNode jjtn000 = new SimpleNode(JJTERROR_SKIPTO);
+boolean jjtc000 = true;
+jjtree.openNodeScope(jjtn000);
+try {
+/*@egen*/
+  ParseException e = generateParseException();  // generate the exception object.
+  System.out.println(e.toString());  // print the error message
+  Token t;
+  do {
+    t = getNextToken();
+  } while (t.kind != 5);
+  System.out.println(t.kind + " " + t.image);/*@bgen(jjtree)*/
+} finally {
+  if (jjtc000) {
+    jjtree.closeNodeScope(jjtn000, true);
+  }
+}
+/*@egen*/
+  
+
+    // The above loop consumes tokens all the way up to a token of
+    // "kind".  We use a do-while loop rather than a while because the
+    // current token is the one immediately before the erroneous token
+    // (in our case the token immediately before what should have been
+    // "if"/"while".
+}
+
+
+void numberOfPaths():{/*@bgen(jjtree) numberOfPaths */
+        SimpleNode jjtn000 = new SimpleNode(JJTNUMBEROFPATHS);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);
+/*@egen*/
+	Token t1, t2 =null;
+	}
+{/*@bgen(jjtree) numberOfPaths */
     try {
 /*@egen*/
-    < OUTPUT > (numberOfPaths() | placesAtDistance())/*@bgen(jjtree)*/
+    number()   <PATHS ><FROM >places()
+   			((t1=<DOUBLEPOINT ><CRITERIA > )|t1=<CRITERIA >)   			{
+   			  if(t1.image!=":")   			  {
+   			    missedDouble+=" [: criteria] ";   			  }   			}
+
+   			  ((t2=<DOUBLEPOINT > criteriaType())|criteriaType())/*@bgen(jjtree)*/
+                          {
+                            jjtree.closeNodeScope(jjtn000, true);
+                            jjtc000 = false;
+                          }
+/*@egen*/
+   			  {
+   			  try   			  {   			    
+   			  if(t2.image!=":")
+   			  {
+   			    missedDouble+=" [ criteria:] ";
+   			  }   			}   			catch (NullPointerException e) {
+    missedDouble+=" [ criteria:] ";
+} 
+   			}/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -133,40 +236,10 @@ void output():{/*@bgen(jjtree) output */
         jjtree.closeNodeScope(jjtn000, true);
       }
     }
-/*@egen*/  
-  }
-	
-void numberOfPaths():{/*@bgen(jjtree) numberOfPaths */
-  SimpleNode jjtn000 = new SimpleNode(JJTNUMBEROFPATHS);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/
- }
-{/*@bgen(jjtree) numberOfPaths */
-try {
-/*@egen*/
-number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
-} catch (Throwable jjte000) {
-  if (jjtc000) {
-    jjtree.clearNodeScope(jjtn000);
-    jjtc000 = false;
-  } else {
-    jjtree.popNode();
-  }
-  if (jjte000 instanceof RuntimeException) {
-    throw (RuntimeException)jjte000;
-  }
-  if (jjte000 instanceof ParseException) {
-    throw (ParseException)jjte000;
-  }
-  throw (Error)jjte000;
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-  }
-}
 /*@egen*/
   }
+
+  
 
 void placesAtDistance():
 {/*@bgen(jjtree) placesAtDistance */
@@ -211,22 +284,22 @@ void compareSign():
    Token t;
 }
 {/*@bgen(jjtree) compareSign */
- try {
+try {
 /*@egen*/
- t=<COMPARE >/*@bgen(jjtree)*/
-             {
-               jjtree.closeNodeScope(jjtn000, true);
-               jjtc000 = false;
-             }
-/*@egen*/{jjtn000.value = t.image;
+try{  
+ t=<COMPARE >{jjtn000.value = t.image;
  //System.out.println(t.image);
 	ST.put(t.image,new STC("compare_sign",t.image));
-}/*@bgen(jjtree)*/
- } finally {
-   if (jjtc000) {
-     jjtree.closeNodeScope(jjtn000, true);
-   }
- }
+}}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid compare sign!");
+		System.exit( 0 );
+	}/*@bgen(jjtree)*/
+} finally {
+  if (jjtc000) {
+    jjtree.closeNodeScope(jjtn000, true);
+  }
+}
 /*@egen*/
 }
  
@@ -236,29 +309,46 @@ void places():
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}{/*@bgen(jjtree) places */
-  try {
+try {
 /*@egen*/
-  place() <TO >place()/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
+try
+{
+  place()
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid departure place. Should be in format \"[place]\"!");
+		System.exit( 0 );
+	}
+
+  <TO >
+
+try{  place()
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid arrival place. Should be in format \"[place]\"!");
+		System.exit( 0 );
+	}/*@bgen(jjtree)*/
+} catch (Throwable jjte000) {
+  if (jjtc000) {
+    jjtree.clearNodeScope(jjtn000);
+    jjtc000 = false;
+  } else {
+    jjtree.popNode();
   }
-/*@egen*/}
+  if (jjte000 instanceof RuntimeException) {
+    throw (RuntimeException)jjte000;
+  }
+  if (jjte000 instanceof ParseException) {
+    throw (ParseException)jjte000;
+  }
+  throw (Error)jjte000;
+} finally {
+  if (jjtc000) {
+    jjtree.closeNodeScope(jjtn000, true);
+  }
+}
+/*@egen*/
+  }
 void place():
 {/*@bgen(jjtree) place */
    SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
@@ -293,23 +383,27 @@ void number():{/*@bgen(jjtree) number */
    jjtree.openNodeScope(jjtn000);
 /*@egen*/
    Token t;}{/*@bgen(jjtree) number */
- try {
+  try {
 /*@egen*/
- t=< NUMBER>/*@bgen(jjtree)*/
-              {
-                jjtree.closeNodeScope(jjtn000, true);
-                jjtc000 = false;
-              }
-/*@egen*/  {jjtn000.value = t.image;
+  try  {    
+ t=< NUMBER>  {jjtn000.value = t.image;
  	//System.out.println(t.image);
 	ST.put(t.image,new STC("number",t.image));
- }/*@bgen(jjtree)*/
- } finally {
-   if (jjtc000) {
-     jjtree.closeNodeScope(jjtn000, true);
-   }
- }
-/*@egen*/}
+	
+}
+}
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid number. Waiting for an Integer!");
+		System.exit( 0 );
+	}/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+
+}
 
 void  criteriaType():
 {/*@bgen(jjtree) criteriaType */
@@ -319,22 +413,28 @@ void  criteriaType():
 /*@egen*/
   Token t;
 }
+  
 {/*@bgen(jjtree) criteriaType */
-try {
+  try {
 /*@egen*/
-t=<CRITERIA_TYPE >/*@bgen(jjtree)*/
-                    {
-                      jjtree.closeNodeScope(jjtn000, true);
-                      jjtc000 = false;
-                    }
-/*@egen*/  {jjtn000.value = t.image;
+  try  {    
+  (
+	t=<CRITERIA_TYPE >
+{jjtn000.value = t.image;
 	//System.out.println(t.image);
    ST.put(t.image,new STC("criteria",t.image));
-}/*@bgen(jjtree)*/
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-  }
+ }
+
+)
 }
+	catch( TokenMgrError e ) {
+		System.out.println("ERROR: Invalid criteria type. Waiting for criteria:shortest or fastest!");
+		System.exit( 0 );
+	}/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
 /*@egen*/
 }

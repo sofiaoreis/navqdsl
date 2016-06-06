@@ -27,8 +27,10 @@ public class Main {
 			root = parser.Start();
 			root.dump("");
 		} catch (ParseException e) {
+			
 			e.printStackTrace();
 		}
+		parser.PrintWarnings();
 		
 		//Semantic analyser = new Semantic(root);
 		//analyser.checkSemantic();

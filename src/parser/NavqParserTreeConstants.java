@@ -5,18 +5,20 @@ public interface NavqParserTreeConstants
 {
   public int JJTSTART = 0;
   public int JJTOUTPUT = 1;
-  public int JJTNUMBEROFPATHS = 2;
-  public int JJTPLACESATDISTANCE = 3;
-  public int JJTCOMPARESIGN = 4;
-  public int JJTPLACES = 5;
-  public int JJTPLACE = 6;
-  public int JJTNUMBER = 7;
-  public int JJTCRITERIATYPE = 8;
+  public int JJTERROR_SKIPTO = 2;
+  public int JJTNUMBEROFPATHS = 3;
+  public int JJTPLACESATDISTANCE = 4;
+  public int JJTCOMPARESIGN = 5;
+  public int JJTPLACES = 6;
+  public int JJTPLACE = 7;
+  public int JJTNUMBER = 8;
+  public int JJTCRITERIATYPE = 9;
 
 
   public String[] jjtNodeName = {
     "Start",
     "output",
+    "error_skipto",
     "numberOfPaths",
     "placesAtDistance",
     "compareSign",
@@ -26,4 +28,4 @@ public interface NavqParserTreeConstants
     "criteriaType",
   };
 }
-/* JavaCC - OriginalChecksum=f452ce291e6bf2062c8bf6ac922ce593 (do not edit this line) */
+/* JavaCC - OriginalChecksum=2c4a8bb95d7e567e0e78e257f3046620 (do not edit this line) */
