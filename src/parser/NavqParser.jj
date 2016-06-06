@@ -11,111 +11,29 @@ import java.util.Enumeration;
     import org.jgrapht.alg.*;
     import org.jgrapht.graph.*;
     import java.util.List;
-    import org.jgrapht.traverse.DepthFirstIterator;
-import org.jgrapht.traverse.GraphIterator;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
+import org.jgrapht.traverse.*;
+import java.util.Collections;
 
 
 import java.net.*;
+
 
 public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected static JJTNavqParserState jjtree = new JJTNavqParserState();
 
 /*@egen*/
 	public static Hashtable ST = new Hashtable();
-	public static SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class); ;
-	
-    public static void main(String args []) throws ParseException  {
-	String temp;
-    STC    temp2;
-    NavqParser parser = new NavqParser(System.in);
-    SimpleNode root = parser.Start();
-    root.dump("");
 
-	 Enumeration t = ST.keys();
-	 
-	
-   	while (t.hasMoreElements() == true) {
-
-          temp = (String)t.nextElement();
-          temp2 = (STC)ST.get(temp);
-          System.out.println(temp);
-          
-          if ( temp2.type != null )
-            System.out.println(" type = " + temp2.type);
-          if ( temp2.value != null )
-            System.out.println(" value = " + temp2.value);
-
-    }
-          readFile();
-          getShortestPaths(graph, "1","4",2);  }
-
-  public static void getShortestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)  {
-     KShortestPaths kgraph = new KShortestPaths(graph, startVertice, numberPaths);
-     List shortest_paths = kgraph.getPaths(endVertice);
-
-     for(int i = 0; i < shortest_paths.size(); i++)
-     {
-     	System.out.println(shortest_paths.get(i));
-     }
-  }
-
-  public static void readFile()
-  {
-    try
-    {
-	    BufferedReader reader = new BufferedReader(new FileReader("./data/small.NY.gr"));
-	    String line;
-	    while ((line = reader.readLine()) != null)
-	    {
-	   	   if(line.substring(0, 1).matches("^a.*"))
-	   	   {
-	   	     addInfoToGraph(line);	   	   }
-	   	   
-	    }
-	    reader.close();
-	  }
-	  catch (Exception e)
-	  {
-	    System.err.format("Exception occurred trying to read '%s'.", "./data/small.NY.gr");
-	    e.printStackTrace();
-	  }
-  }
-
-  public static void addInfoToGraph(String str)
-  {
-	String[] splited = str.split(" ");
-
-	addVertex(splited[1]);
-	addVertex(splited[2]);
-	
-	  DefaultWeightedEdge edge = graph.addEdge(splited[1], splited[2]);
-		//System.out.println("NODE1:" + splited[1] + "NODE2:" + splited[2] + "NODE3:" + splited[3]);
-    	graph.setEdgeWeight(edge, Integer.parseInt(splited[3]));	
-	  }
-
-  public static void addVertex(String vertex)
- {
-   if(!graph.containsVertex(vertex))
-   {
-     graph.addVertex(vertex);   }
-  }
-
-  public static void getFastestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)
-  {
-     DepthFirstIterator iterator = new DepthFirstIterator(graph, startVertice);
-        while(iterator.hasNext()) { 
-            System.out.println(iterator.next());
-        }
-
-  }
+	public static Hashtable getHashTable()
+	{
+	  return ST;	}
+    
+}
 
 
-  
 
-
- }
 
 PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
 //static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
@@ -147,15 +65,15 @@ TOKEN :
 //OPERATORS
 TOKEN :
 {	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
-}SimpleNode  Start()       :
-{/*@bgen(jjtree) START */
+}SimpleNode  Start():
+{/*@bgen(jjtree) Start */
   SimpleNode jjtn000 = new SimpleNode(JJTSTART);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   
 }
-{/*@bgen(jjtree) START */
+{/*@bgen(jjtree) Start */
 try {
 /*@egen*/
 output()/*@bgen(jjtree)*/
@@ -186,43 +104,45 @@ output()/*@bgen(jjtree)*/
 /*@egen*/
 }
 
-void output()         :{/*@bgen(jjtree) OUTPUT */
+void output():{/*@bgen(jjtree) output */
   SimpleNode jjtn000 = new SimpleNode(JJTOUTPUT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
  }
-{/*@bgen(jjtree) OUTPUT */
-  try {
-/*@egen*/ < OUTPUT > (numberOfPaths() | placesAtDistance())/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
+{/*@bgen(jjtree) output */
+    try {
+/*@egen*/
+    < OUTPUT > (numberOfPaths() | placesAtDistance())/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
     }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}
+/*@egen*/  
+  }
 	
-void numberOfPaths()                :{/*@bgen(jjtree) NUMBER_OF_PATHS */
-  SimpleNode jjtn000 = new SimpleNode(JJTNUMBER_OF_PATHS);
+void numberOfPaths():{/*@bgen(jjtree) numberOfPaths */
+  SimpleNode jjtn000 = new SimpleNode(JJTNUMBEROFPATHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
  }
-{/*@bgen(jjtree) NUMBER_OF_PATHS */
+{/*@bgen(jjtree) numberOfPaths */
 try {
 /*@egen*/
 number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteriaType()/*@bgen(jjtree)*/
@@ -248,15 +168,15 @@ number() <PATHS ><FROM >places()<DOUBLEPOINT ><CRITERIA ><DOUBLEPOINT > criteria
 /*@egen*/
   }
 
-void placesAtDistance()                    :
-{/*@bgen(jjtree) PLACES_AT_DISTANCE */
-  SimpleNode jjtn000 = new SimpleNode(JJTPLACES_AT_DISTANCE);
+void placesAtDistance():
+{/*@bgen(jjtree) placesAtDistance */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACESATDISTANCE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   
 }
-{/*@bgen(jjtree) PLACES_AT_DISTANCE */
+{/*@bgen(jjtree) placesAtDistance */
 try {
 /*@egen*/
 < PLACES ><WITH ><DISTANCE > compareSign() number()<PLACES ><FROM >place()/*@bgen(jjtree)*/
@@ -282,15 +202,15 @@ try {
 /*@egen*/
   
 }
-void compareSign()              :
-{/*@bgen(jjtree) COMPARE_SIGN */
-   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARE_SIGN);
+void compareSign():
+{/*@bgen(jjtree) compareSign */
+   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARESIGN);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);
 /*@egen*/
    Token t;
 }
-{/*@bgen(jjtree) COMPARE_SIGN */
+{/*@bgen(jjtree) compareSign */
  try {
 /*@egen*/
  t=<COMPARE >/*@bgen(jjtree)*/
@@ -299,7 +219,9 @@ void compareSign()              :
                jjtc000 = false;
              }
 /*@egen*/{jjtn000.value = t.image;
- ST.put(t.image,new STC("compare_sign",t.image));}/*@bgen(jjtree)*/
+ //System.out.println(t.image);
+	ST.put(t.image,new STC("compare_sign",t.image));
+}/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -308,12 +230,12 @@ void compareSign()              :
 /*@egen*/
 }
  
-void places()    :
-{/*@bgen(jjtree) TO */
-  SimpleNode jjtn000 = new SimpleNode(JJTTO);
+void places():
+{/*@bgen(jjtree) places */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACES);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) TO */
+/*@egen*/}{/*@bgen(jjtree) places */
   try {
 /*@egen*/
   place() <TO >place()/*@bgen(jjtree)*/
@@ -337,15 +259,15 @@ void places()    :
     }
   }
 /*@egen*/}
-void place()        :
-{/*@bgen(jjtree) PLACE */
+void place():
+{/*@bgen(jjtree) place */
    SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);
 /*@egen*/
    Token t;
 }
-{/*@bgen(jjtree) PLACE */
+{/*@bgen(jjtree) place */
  try {
 /*@egen*/
  t=< QUOTED>/*@bgen(jjtree)*/
@@ -354,7 +276,9 @@ void place()        :
                 jjtc000 = false;
               }
 /*@egen*/  {jjtn000.value = t.image;
- ST.put(t.image,new STC("place",t.image));}/*@bgen(jjtree)*/
+ //System.out.println(t.image);
+ 	ST.put(t.image,new STC("place",t.image));
+ }/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -363,12 +287,12 @@ void place()        :
 /*@egen*/
 }
 
-void number()        :{/*@bgen(jjtree) NUMBER */
+void number():{/*@bgen(jjtree) number */
    SimpleNode jjtn000 = new SimpleNode(JJTNUMBER);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);
 /*@egen*/
-   Token t;}{/*@bgen(jjtree) NUMBER */
+   Token t;}{/*@bgen(jjtree) number */
  try {
 /*@egen*/
  t=< NUMBER>/*@bgen(jjtree)*/
@@ -377,6 +301,7 @@ void number()        :{/*@bgen(jjtree) NUMBER */
                 jjtc000 = false;
               }
 /*@egen*/  {jjtn000.value = t.image;
+ 	//System.out.println(t.image);
 	ST.put(t.image,new STC("number",t.image));
  }/*@bgen(jjtree)*/
  } finally {
@@ -386,15 +311,15 @@ void number()        :{/*@bgen(jjtree) NUMBER */
  }
 /*@egen*/}
 
-void  criteriaType()               :
-{/*@bgen(jjtree) CRITERIA_TYPE */
-  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIA_TYPE);
+void  criteriaType():
+{/*@bgen(jjtree) criteriaType */
+  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIATYPE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   Token t;
 }
-{/*@bgen(jjtree) CRITERIA_TYPE */
+{/*@bgen(jjtree) criteriaType */
 try {
 /*@egen*/
 t=<CRITERIA_TYPE >/*@bgen(jjtree)*/
@@ -403,6 +328,7 @@ t=<CRITERIA_TYPE >/*@bgen(jjtree)*/
                       jjtc000 = false;
                     }
 /*@egen*/  {jjtn000.value = t.image;
+	//System.out.println(t.image);
    ST.put(t.image,new STC("criteria",t.image));
 }/*@bgen(jjtree)*/
 } finally {

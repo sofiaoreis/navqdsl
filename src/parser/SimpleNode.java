@@ -10,6 +10,7 @@ class SimpleNode implements Node {
   protected int id;
   protected Object value;
   protected NavqParser parser;
+private String info;
 
   public SimpleNode(int i) {
     id = i;
@@ -19,6 +20,10 @@ class SimpleNode implements Node {
     this(i);
     parser = p;
   }
+  
+  public String getInfo() {
+		return info;
+	}
 
   public void jjtOpen() {
   }
@@ -74,6 +79,11 @@ class SimpleNode implements Node {
       }
     }
   }
+
+public String getNodeType() {
+	// TODO Auto-generated method stub
+	return NavqParserTreeConstants.jjtNodeName[id];
+}
 }
 
 /* JavaCC - OriginalChecksum=a9b4416ea5d5dbebff2be52ce26dec37 (do not edit this line) */

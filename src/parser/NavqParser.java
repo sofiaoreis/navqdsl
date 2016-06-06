@@ -9,115 +9,25 @@ import java.util.Enumeration;
     import org.jgrapht.alg.*;
     import org.jgrapht.graph.*;
     import java.util.List;
-    import org.jgrapht.traverse.DepthFirstIterator;
-import org.jgrapht.traverse.GraphIterator;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
+import org.jgrapht.traverse.*;
+import java.util.Collections;
 
 
 import java.net.*;
 
+
 public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, NavqParserConstants {/*@bgen(jjtree)*/
   protected static JJTNavqParserState jjtree = new JJTNavqParserState();public static Hashtable ST = new Hashtable();
-        public static SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class); ;
 
-
-  public static void main(String args []) throws ParseException
-  {
-        String temp;
-    STC    temp2;
-
-    NavqParser parser = new NavqParser(System.in);
-    SimpleNode root = parser.Start();
-    root.dump("");
-
-         Enumeration t = ST.keys();
-
-
-        while (t.hasMoreElements() == true) {
-
-          temp = (String)t.nextElement();
-          temp2 = (STC)ST.get(temp);
-          System.out.println(temp);
-
-          if ( temp2.type != null )
-            System.out.println(" type = " + temp2.type);
-          if ( temp2.value != null )
-            System.out.println(" value = " + temp2.value);
-
-    }
-          readFile();
-          getShortestPaths(graph, "1","4",2);
-  }
-
-  public static void getShortestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)
-  {
-     KShortestPaths kgraph = new KShortestPaths(graph, startVertice, numberPaths);
-     List shortest_paths = kgraph.getPaths(endVertice);
-
-     for(int i = 0; i < shortest_paths.size(); i++)
-     {
-        System.out.println(shortest_paths.get(i));
-     }
-  }
-
-  public static void readFile()
-  {
-    try
-    {
-            BufferedReader reader = new BufferedReader(new FileReader("./data/small.NY.gr"));
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                   if(line.substring(0, 1).matches("^a.*"))
-                   {
-                     addInfoToGraph(line);
-                   }
-
-            }
-            reader.close();
-          }
-          catch (Exception e)
-          {
-            System.err.format("Exception occurred trying to read '%s'.", "./data/small.NY.gr");
-            e.printStackTrace();
-          }
-  }
-
-  public static void addInfoToGraph(String str)
-  {
-        String[] splited = str.split(" ");
-
-        addVertex(splited[1]);
-        addVertex(splited[2]);
-
-          DefaultWeightedEdge edge = graph.addEdge(splited[1], splited[2]);
-                //System.out.println("NODE1:" + splited[1] + "NODE2:" + splited[2] + "NODE3:" + splited[3]);
-        graph.setEdgeWeight(edge, Integer.parseInt(splited[3]));
-
-
-  }
-
-  public static void addVertex(String vertex)
- {
-   if(!graph.containsVertex(vertex))
-   {
-     graph.addVertex(vertex);
-   }
-
- }
-
-  public static void getFastestPaths(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  graph, String startVertice, String endVertice, int numberPaths)
-  {
-     DepthFirstIterator iterator = new DepthFirstIterator(graph, startVertice);
-        while(iterator.hasNext()) {
-            System.out.println(iterator.next());
+        public static Hashtable getHashTable()
+        {
+          return ST;
         }
 
-  }
-
   static final public SimpleNode Start() throws ParseException {
- /*@bgen(jjtree) START */
+ /*@bgen(jjtree) Start */
   SimpleNode jjtn000 = new SimpleNode(JJTSTART);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
@@ -149,7 +59,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void output() throws ParseException {
- /*@bgen(jjtree) OUTPUT */
+ /*@bgen(jjtree) output */
   SimpleNode jjtn000 = new SimpleNode(JJTOUTPUT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
@@ -168,29 +78,29 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
         throw new ParseException();
       }
     } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      {if (true) throw (RuntimeException)jjte000;}
-    }
-    if (jjte000 instanceof ParseException) {
-      {if (true) throw (ParseException)jjte000;}
-    }
-    {if (true) throw (Error)jjte000;}
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
     } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
     }
   }
 
   static final public void numberOfPaths() throws ParseException {
- /*@bgen(jjtree) NUMBER_OF_PATHS */
-  SimpleNode jjtn000 = new SimpleNode(JJTNUMBER_OF_PATHS);
+ /*@bgen(jjtree) numberOfPaths */
+  SimpleNode jjtn000 = new SimpleNode(JJTNUMBEROFPATHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -224,8 +134,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void placesAtDistance() throws ParseException {
- /*@bgen(jjtree) PLACES_AT_DISTANCE */
-  SimpleNode jjtn000 = new SimpleNode(JJTPLACES_AT_DISTANCE);
+ /*@bgen(jjtree) placesAtDistance */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACESATDISTANCE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -259,8 +169,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void compareSign() throws ParseException {
- /*@bgen(jjtree) COMPARE_SIGN */
-   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARE_SIGN);
+ /*@bgen(jjtree) compareSign */
+   SimpleNode jjtn000 = new SimpleNode(JJTCOMPARESIGN);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);Token t;
     try {
@@ -268,7 +178,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
                jjtree.closeNodeScope(jjtn000, true);
                jjtc000 = false;
               jjtn000.value = t.image;
- ST.put(t.image,new STC("compare_sign",t.image));
+ //System.out.println(t.image);
+        ST.put(t.image,new STC("compare_sign",t.image));
     } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -277,8 +188,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void places() throws ParseException {
- /*@bgen(jjtree) TO */
-  SimpleNode jjtn000 = new SimpleNode(JJTTO);
+ /*@bgen(jjtree) places */
+  SimpleNode jjtn000 = new SimpleNode(JJTPLACES);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -307,7 +218,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void place() throws ParseException {
- /*@bgen(jjtree) PLACE */
+ /*@bgen(jjtree) place */
    SimpleNode jjtn000 = new SimpleNode(JJTPLACE);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);Token t;
@@ -316,7 +227,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
                jjtn000.value = t.image;
- ST.put(t.image,new STC("place",t.image));
+ //System.out.println(t.image);
+        ST.put(t.image,new STC("place",t.image));
     } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
@@ -325,7 +237,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void number() throws ParseException {
- /*@bgen(jjtree) NUMBER */
+ /*@bgen(jjtree) number */
    SimpleNode jjtn000 = new SimpleNode(JJTNUMBER);
    boolean jjtc000 = true;
    jjtree.openNodeScope(jjtn000);Token t;
@@ -334,6 +246,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
                jjtn000.value = t.image;
+        //System.out.println(t.image);
         ST.put(t.image,new STC("number",t.image));
     } finally {
    if (jjtc000) {
@@ -343,8 +256,8 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
   }
 
   static final public void criteriaType() throws ParseException {
- /*@bgen(jjtree) CRITERIA_TYPE */
-  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIA_TYPE);
+ /*@bgen(jjtree) criteriaType */
+  SimpleNode jjtn000 = new SimpleNode(JJTCRITERIATYPE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);Token t;
     try {
@@ -352,6 +265,7 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
                       jjtree.closeNodeScope(jjtn000, true);
                       jjtc000 = false;
                      jjtn000.value = t.image;
+        //System.out.println(t.image);
    ST.put(t.image,new STC("criteria",t.image));
     } finally {
   if (jjtc000) {
