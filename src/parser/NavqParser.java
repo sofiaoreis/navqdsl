@@ -29,7 +29,6 @@ public class NavqParser/*@bgen(jjtree)*/implements NavqParserTreeConstants, Navq
 
 public void PrintWarnings()
   {
-    System.out.println("WARNING: You are beautiful!");
     if(missedDouble!= "")
         System.out.println("Warning: You've missed doublepoint, in the following situation " + missedDouble);
 
@@ -73,7 +72,14 @@ public void PrintWarnings()
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      jj_consume_token(OUTPUT);
+      try {
+        jj_consume_token(OUTPUT);
+      } catch (TokenMgrError e) {
+      System.out.println("ERROR: You Should use the next queries:");
+      System.out.println("       Output <number> paths from \u005c"<startVertexID>\u005c" to \u005c"<endVertexID>\u005c": criteria: <shortest/fastest>");
+      System.out.println("       Output places with distance <compareSign> <number> places from \u005c"<startVertexID>\u005c"");
+      System.exit(0);
+      }
       try {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case NUMBER:
@@ -88,27 +94,31 @@ public void PrintWarnings()
           throw new ParseException();
         }
       } catch (TokenMgrError e) {
-                        System.out.println("There was an ERROR in the QUERIE! \u005cnWaiting for querie Output\u005cn  [number] paths from \u005c"[place]\u005c" to \u005c"[place]\u005c": criteria: [shortest|fastest]\u005cn  places with distance [compare_sign] [number] places from \u005c"[place]\u005c"");
-                        System.exit( 0 );
+                                System.out.println("ERROR: You failed choosing the query:");
+                                System.out.println("       Output");
+                                System.out.println("              [<number> paths from \u005c"<startVertexID>\u005c" to \u005c"<endVertexID>\u005c": criteria: <shortest/fastest>]");
+                        System.out.println("       OR   ");
+                        System.out.println("              [places with distance <compareSign> <number> places from \u005c"<startVertexID>\u005c"]");
+                        System.exit(0);
       }
     } catch (Throwable jjte000) {
-     if (jjtc000) {
-       jjtree.clearNodeScope(jjtn000);
-       jjtc000 = false;
-     } else {
-       jjtree.popNode();
-     }
-     if (jjte000 instanceof RuntimeException) {
-       {if (true) throw (RuntimeException)jjte000;}
-     }
-     if (jjte000 instanceof ParseException) {
-       {if (true) throw (ParseException)jjte000;}
-     }
-     {if (true) throw (Error)jjte000;}
+   if (jjtc000) {
+     jjtree.clearNodeScope(jjtn000);
+     jjtc000 = false;
+   } else {
+     jjtree.popNode();
+   }
+   if (jjte000 instanceof RuntimeException) {
+     {if (true) throw (RuntimeException)jjte000;}
+   }
+   if (jjte000 instanceof ParseException) {
+     {if (true) throw (ParseException)jjte000;}
+   }
+   {if (true) throw (Error)jjte000;}
     } finally {
-     if (jjtc000) {
-       jjtree.closeNodeScope(jjtn000, true);
-     }
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
     }
   }
 
@@ -250,7 +260,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
         t = jj_consume_token(COMPARE);
               jjtn000.value = t.image;
  //System.out.println(t.image);
-        ST.put(t.image,new STC("compare_sign",t.image));
+        ST.put(t.image,new STC("compare",t.image));
       } catch (TokenMgrError e) {
                 System.out.println("ERROR: Invalid compare sign!");
                 System.exit( 0 );
@@ -312,7 +322,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
                jjtn000.value = t.image;
- //System.out.println(t.image);
+ //	System.out.println(t.image);
         ST.put(t.image,new STC("place",t.image));
     } finally {
    if (jjtc000) {
@@ -353,7 +363,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
         t = jj_consume_token(CRITERIA_TYPE);
  jjtn000.value = t.image;
         //System.out.println(t.image);
-   ST.put(t.image,new STC("criteria",t.image));
+   ST.put(t.image,new STC("criteria_type",t.image));
       } catch (TokenMgrError e) {
                 System.out.println("ERROR: Invalid criteria type. Waiting for criteria:shortest or fastest!");
                 System.exit( 0 );
@@ -381,7 +391,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x2020,0x10200,0x280,};
+      jj_la1_0 = new int[] {0x1020,0x8200,0x280,};
    }
 
   /** Constructor with InputStream. */
@@ -522,7 +532,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[20];
+    boolean[] la1tokens = new boolean[19];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -536,7 +546,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
         }
       }
     }
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 19; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

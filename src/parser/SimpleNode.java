@@ -14,6 +14,7 @@ private String info;
 
   public SimpleNode(int i) {
     id = i;
+    //System.out.println(id);
   }
 
   public SimpleNode(NavqParser p, int i) {

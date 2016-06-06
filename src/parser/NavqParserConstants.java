@@ -21,25 +21,23 @@ public interface NavqParserConstants {
   /** RegularExpression Id. */
   int DOUBLEPOINT = 9;
   /** RegularExpression Id. */
-  int CENAS = 10;
+  int OUTPUT = 10;
   /** RegularExpression Id. */
-  int OUTPUT = 11;
+  int PATHS = 11;
   /** RegularExpression Id. */
-  int PATHS = 12;
+  int PLACES = 12;
   /** RegularExpression Id. */
-  int PLACES = 13;
+  int FROM = 13;
   /** RegularExpression Id. */
-  int FROM = 14;
+  int TO = 14;
   /** RegularExpression Id. */
-  int TO = 15;
+  int CRITERIA = 15;
   /** RegularExpression Id. */
-  int CRITERIA = 16;
+  int WITH = 16;
   /** RegularExpression Id. */
-  int WITH = 17;
+  int DISTANCE = 17;
   /** RegularExpression Id. */
-  int DISTANCE = 18;
-  /** RegularExpression Id. */
-  int COMPARE = 19;
+  int COMPARE = 18;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -56,7 +54,6 @@ public interface NavqParserConstants {
     "<CRITERIA_TYPE>",
     "<QUOTED>",
     "\":\"",
-    "\"\\\"\"",
     "\"Output\"",
     "\"paths\"",
     "\"places\"",

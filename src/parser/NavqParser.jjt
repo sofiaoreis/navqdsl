@@ -1,6 +1,13 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = true;}PARSER_BEGIN(NavqParser)package parser;
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(NavqParser)
+package parser;
 
 import java.io.*;
 import java.util.Hashtable;
@@ -19,28 +26,45 @@ import java.util.Collections;
 import java.net.*;
 
 
-public class NavqParser{
+public class NavqParser
+{
 	public static Hashtable ST = new Hashtable();
 	public static String missedDouble = "";
 
 	public static Hashtable getHashTable()
 	{
-	  return ST;	}
+	  return ST;
+	}
 
 public void PrintWarnings()
   {
-    System.out.println("WARNING: You are beautiful!");
     if(missedDouble!= "")
     	System.out.println("Warning: You've missed doublepoint, in the following situation " + missedDouble);
     
   }
-}
+
+}
 
 
 
 
-PARSER_END(NavqParser)SKIP :{  " "| "\r"| "\t"| "\n"}
-//static tokensTOKEN :{ < NUMBER: (<DIGIT>)+>
+
+
+PARSER_END(NavqParser)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+
+//Static Tokens
+TOKEN :
+{
+ < NUMBER: (<DIGIT>)+>
 |  <#DIGIT: ["0"-"9"]>
 | < CRITERIA_TYPE: "shortest" | "fastest" >
 | <QUOTED: 
@@ -52,11 +76,12 @@ public void PrintWarnings()
     )* 
     "\"" > 
 | < DOUBLEPOINT: ":" >
-| < CENAS: "\"" >}
+}
 
-//reserved words
+//Reserved Words
 TOKEN :
-{< OUTPUT: "Output" >
+{
+< OUTPUT: "Output" >
 | < PATHS: "paths" >
 | < PLACES: "places" >
 | < FROM: "from" >
@@ -66,12 +91,15 @@ TOKEN :
 | < DISTANCE: "distance" >
 }
 
-//OPERATORS
+//Operators
 TOKEN :
-{	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
+{
+	< COMPARE: "<=" | ">=" | "=" | "<" | ">" >
 }
 
-SimpleNode  Start():
+
+
+SimpleNode  Start():
 {
   
 }
@@ -79,21 +107,40 @@ TOKEN :
 output() {return jjtThis;}
 }
 
-void output():{
- }
+void output():
 {
-   
-   < OUTPUT >try{  
+ 
+}
+{
+
+ try {
+    < OUTPUT > }
+ catch(TokenMgrError e) {
+      System.out.println("ERROR: You Should use the next queries:");
+      System.out.println("       Output <number> paths from \"<startVertexID>\" to \"<endVertexID>\": criteria: <shortest/fastest>");
+      System.out.println("       Output places with distance <compareSign> <number> places from \"<startVertexID>\"");
+      System.exit(0);    
+  }
+  
+  
+try
+{
+  
    (
      numberOfPaths()
 
    | placesAtDistance())
 }
 		catch( TokenMgrError e ) {
-			System.out.println("There was an ERROR in the QUERIE! \nWaiting for querie Output\n  [number] paths from \"[place]\" to \"[place]\": criteria: [shortest|fastest]\n  places with distance [compare_sign] [number] places from \"[place]\"");
-			System.exit( 0 );
-			}
-}
+		  		System.out.println("ERROR: You failed choosing the query:");
+				System.out.println("       Output");
+				System.out.println("              [<number> paths from \"<startVertexID>\" to \"<endVertexID>\": criteria: <shortest/fastest>]");
+     			System.out.println("       OR   ");
+     			System.out.println("              [places with distance <compareSign> <number> places from \"<startVertexID>\"]");
+     			System.exit(0);
+		}
+
+}
 
 
 JAVACODE
@@ -115,28 +162,42 @@ void error_skipto(int kind) {
 }
 
 
-void numberOfPaths():{
-	Token t1, t2 =null;
-	}
+void numberOfPaths():
+
 {
-    number()   <PATHS ><FROM >places()
-   			((t1=<DOUBLEPOINT ><CRITERIA > )|t1=<CRITERIA >)   			{
-   			  if(t1.image!=":")   			  {
-   			    missedDouble+=" [: criteria] ";   			  }   			}
+	Token t1, t2 =null;
+	
+}
+{
+    number()
+   <PATHS ><FROM >places()
+   			((t1=<DOUBLEPOINT ><CRITERIA > )|t1=<CRITERIA >)
+   			{
+   			  if(t1.image!=":")
+   			  {
+   			    missedDouble+=" [: criteria] ";
+   			  }
+   			}
 
    			  ((t2=<DOUBLEPOINT > criteriaType())|criteriaType())
    			  {
-   			  try   			  {   			    
+   			  try
+   			  {
+   			    
    			  if(t2.image!=":")
    			  {
    			    missedDouble+=" [ criteria:] ";
-   			  }   			}   			catch (NullPointerException e) {
+   			  }
+   			}
+   			catch (NullPointerException e) {
     missedDouble+=" [ criteria:] ";
 } 
    			}
-  }
+  
+}
 
-  
+
+  
 
 void placesAtDistance():
 {
@@ -151,11 +212,14 @@ void compareSign():
    Token t;
 }
 {
-try{  
+try
+{
+  
  t=<COMPARE >{jjtThis.value = t.image;
  //System.out.println(t.image);
-	ST.put(t.image,new STC("compare_sign",t.image));
-}}
+	ST.put(t.image,new STC("compare",t.image));
+}
+}
 	catch( TokenMgrError e ) {
 		System.out.println("ERROR: Invalid compare sign!");
 		System.exit( 0 );
@@ -163,7 +227,9 @@ try{
 }
  
 void places():
-{}{
+{
+}
+{
 try
 {
   place()
@@ -175,27 +241,35 @@ try
 
   <TO >
 
-try{  place()
+try
+{
+  place()
 }
 	catch( TokenMgrError e ) {
 		System.out.println("ERROR: Invalid arrival place. Should be in format \"[place]\"!");
 		System.exit( 0 );
 	}
-  }
+  
+}
 void place():
 {
    Token t;
 }
 {
  t=< QUOTED>  {jjtThis.value = t.image;
- //System.out.println(t.image);
+ //	System.out.println(t.image);
  	ST.put(t.image,new STC("place",t.image));
  }
 }
 
-void number():{
-   Token t;}{
-  try  {    
+void number():
+{
+   Token t;
+}
+{
+  try
+  {
+    
  t=< NUMBER>  {jjtThis.value = t.image;
  	//System.out.println(t.image);
 	ST.put(t.image,new STC("number",t.image));
@@ -207,20 +281,25 @@ void number():{
 		System.exit( 0 );
 	}
 
-}
+}
+
 
 void  criteriaType():
 {
   Token t;
 }
-  
+
+  
 {
-  try  {    
-  (
+  try
+  {
+    
+  (
+
 	t=<CRITERIA_TYPE >
 {jjtThis.value = t.image;
 	//System.out.println(t.image);
-   ST.put(t.image,new STC("criteria",t.image));
+   ST.put(t.image,new STC("criteria_type",t.image));
  }
 
 )
@@ -229,4 +308,5 @@ void  criteriaType():
 		System.out.println("ERROR: Invalid criteria type. Waiting for criteria:shortest or fastest!");
 		System.exit( 0 );
 	}
-}
+}
+
