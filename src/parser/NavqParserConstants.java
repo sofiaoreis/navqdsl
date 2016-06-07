@@ -11,15 +11,17 @@ public interface NavqParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int NUMBER = 5;
+  int NUMBER = 4;
   /** RegularExpression Id. */
-  int DIGIT = 6;
+  int DIGIT = 5;
   /** RegularExpression Id. */
-  int CRITERIA_TYPE = 7;
+  int CRITERIA_TYPE = 6;
   /** RegularExpression Id. */
-  int QUOTED = 8;
+  int QUOTED = 7;
   /** RegularExpression Id. */
-  int DOUBLEPOINT = 9;
+  int DOUBLEPOINT = 8;
+  /** RegularExpression Id. */
+  int LF = 9;
   /** RegularExpression Id. */
   int OUTPUT = 10;
   /** RegularExpression Id. */
@@ -48,12 +50,12 @@ public interface NavqParserConstants {
     "\" \"",
     "\"\\r\"",
     "\"\\t\"",
-    "\"\\n\"",
     "<NUMBER>",
     "<DIGIT>",
     "<CRITERIA_TYPE>",
     "<QUOTED>",
     "\":\"",
+    "\"\\n\"",
     "\"Output\"",
     "\"paths\"",
     "\"places\"",

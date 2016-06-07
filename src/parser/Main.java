@@ -23,7 +23,7 @@ public class Main {
 	public static HashMap<String,String> vars;
 	
 	public static void main(String args []){
-
+		System.out.println("Insert your querie:");
 	    NavqParser parser = new NavqParser(System.in);
 	    SimpleNode root = null;
 		try {
@@ -112,7 +112,7 @@ public class Main {
 			}
 		}
 
-		if(places.size() >= 0)
+		if(places.size() > 0)
 		{
 			System.out.print("Final Result: The places are ");
 			for(int j=0; j<places.size(); j++){
