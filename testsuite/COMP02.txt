@@ -1,0 +1,10 @@
+**********************************************
+INPUT
+	Output 10 paths from "1" to "2": criteria shortest
+
+OUTPUT
+	Warning: You've missed doublepoint, in the following situation  <  criteria: > 
+	Final Result: 
+	Path 1: [(2 : 4), (4 : 1)]
+	Path 2: [(2 : 5), (5 : 4), (4 : 1)]
+	Path 3: [(2 : 3), (3 : 5), (5 : 4), (4 : 1)]

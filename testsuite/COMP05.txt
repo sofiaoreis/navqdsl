@@ -1,0 +1,8 @@
+**********************************************
+INPUT
+	Output places with distance <=ndfln places from "1"
+
+OUTPUT
+	TOKEN ERROR: Invalid number. Waiting for an Integer
+
+	

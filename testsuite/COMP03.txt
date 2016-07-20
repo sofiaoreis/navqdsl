@@ -1,0 +1,7 @@
+**********************************************
+INPUT
+	Output 10 paths from "A" to "B": criteria: 	
+
+OUTPUT
+	PARSER ERROR: Criteria type missing. Waiting for criteria:shortest or fastest!
+

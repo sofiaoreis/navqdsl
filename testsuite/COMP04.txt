@@ -1,0 +1,6 @@
+**********************************************
+INPUT
+	Output 10 paths from : criteria: shortest
+
+OUTPUT
+	PARSER ERROR: Place to evaluate missing. E.g. "1"

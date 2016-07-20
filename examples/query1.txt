@@ -1,0 +1,9 @@
+INPUT:
+Output 2 paths from "1" to "5": criteria: shortest
+
+
+
+OUTPUT:
+Final Result: 
+Path 1: [(1 : 2), (2 : 5)]
+Path 2: [(1 : 3), (3 : 5)]

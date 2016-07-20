@@ -26,4 +26,4 @@ public interface NavqParserTreeConstants
     "criteriaType",
   };
 }
-/* JavaCC - OriginalChecksum=8c2ccad45c7398011d4eb703d4db62d6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f452ce291e6bf2062c8bf6ac922ce593 (do not edit this line) */

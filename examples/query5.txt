@@ -1,0 +1,7 @@
+INPUT:
+Output places with distance <= 2 places from "1"
+
+
+
+OUTPUT:
+Final Result: The places are 2, 3, 5, 4

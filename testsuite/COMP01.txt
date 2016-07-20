@@ -1,0 +1,8 @@
+**********************************************
+INPUT
+AÇEFJPOºEGKREJ ÇTJ5EPº
+
+OUTPUT
+ERROR: You Should use the next queries:
+       Output <number> paths from "<startVertexID>" to "<endVertexID>": criteria: <shortest/fastest>
+       Output places with distance <compareSign> <number> places from "<startVertexID>"

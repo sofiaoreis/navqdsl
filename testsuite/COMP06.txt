@@ -1,0 +1,7 @@
+**********************************************
+INPUT
+	Output 10 from "A" to "B": criteria: shortest
+
+OUTPUT
+	PARSER ERROR: < paths > missing.
+
