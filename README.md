@@ -10,16 +10,16 @@ Some Examples of Input:
 - Output 10 paths from “A” to “B”: criteria: fastest
 - Output places with distance <= 3 places from “A” 
 
-** How to run the project:
+###How to run the project:
 
 Download the 3NAVQDSL.jar, open the terminal and run java -jar 3NAVQDSL.jar in the folder where you saved the jar.
 After that you can test some queries presented in the examples point. 
 
-**DEALING WITH SYNTACTIC ERRORS: 
+###DEALING WITH SYNTACTIC ERRORS: 
 
 While the tree is traveled, the application spears exceptions if the verifications fail. The exceptions are warnings when the input hasn't ":", erros when the query does not make sense; and, token and parser erros customized by us. The program ends when finds the first problem, we think that does not make sense processing the query if it's not equal to the examples. If it's a warning, the result is calculated and outputted. 
 
-**SEMANTIC ANALYSIS:
+###SEMANTIC ANALYSIS:
 
 The application verifies if the nodes chosen exist in the graph.
 
@@ -27,11 +27,11 @@ The application verifies if the nodes chosen exist in the graph.
 
 The application uses a symbol table (hashtable), to make the connection between the data and values. 
 
-**CODE GENERATION: 
+###CODE GENERATION: 
 
 The code generated is from the parser. The Main Class calls the parser, and connects the result with the graph. 
 
-**OVERVIEW: 
+###OVERVIEW: 
 
 The app has a parser that makes the lexical and sintatic analysis, and that creates the symbol table through the traveling of the AST.
 
@@ -41,14 +41,14 @@ In the fastest case, the functions getPaths created by us, returns the shortest 
 
 In the last query, we consider all the edges equal to 1 and the distance equal to the number of edges.
 
-**TESTSUITE AND TEST INFRASTRUCTURE: 
+###TESTSUITE AND TEST INFRASTRUCTURE: 
 
 In the examples folder we have testes that validate the querys, whereas in the testsuite folder we have testes where we show the errors handler.
 
-**PROS: 
+###PROS: 
 
 Processing a query that will operate in a high volume of information.
 
-**CONS: 
+###CONS: 
 
 It's possible that the app is not 100% in terms of erros verification at sintatic and semantic level.
