@@ -1,6 +1,6 @@
 # NAVQDSL
 
-NAVQDSL it's a DSL for specifying queries in navigation systems graphs. The main goal of the application is processing one query that is introduced by input, and apply it to the existing graph.
+NAVQDSL is a DSL for specifying queries in navigation systems graphs. The main goal of the application is processing one query that is introduced by input, and apply it to the existing graph.
 
 The graph used is a small graph created by the developers.
 
@@ -13,7 +13,7 @@ Some Examples of Input:
 ###How to run the project:
 
 Download the 3NAVQDSL.jar, open the terminal and run java -jar 3NAVQDSL.jar in the folder where you saved the jar.
-After that you can test some queries presented in the examples point. 
+Then test some queries presented in the examples point. 
 
 ###DEALING WITH SYNTACTIC ERRORS: 
 
