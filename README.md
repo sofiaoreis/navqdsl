@@ -23,7 +23,7 @@ While the tree is visited, the application spears exceptions if the verification
 
 The application verifies if the chosen nodes exist in the graph.
 
-# INTERMEDIATE REPRESENTATIONS (IRs): 
+#### INTERMEDIATE REPRESENTATIONS (IRs): 
 
 The application uses a symbol table (hashtable) to make the connection between the data and values. 
 
